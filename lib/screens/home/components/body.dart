@@ -3,8 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/components/big_text.dart';
 import 'package:food_delivery/components/small_text.dart';
+import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/screens/home/components/popular_card.dart';
 import 'package:food_delivery/screens/home/components/recommended_food.dart';
+import 'package:get/get.dart';
 import '../../../utils/dimensions.dart';
 import 'dots.dart';
 
@@ -42,16 +44,18 @@ class _BodyState extends State<Body> {
     return Column(
       children: [
         //Recommended Food
-        Container(
-          height: Dimensions.pageView,
-          child: PageView.builder(
-            controller: pageController,
-            itemCount: 5,
-            itemBuilder: (context, index) {
-              return buildPageItem(index);
-            },
-          ),
-        ),
+        GetBuilder<PopularProductController>(builder: (popularProducts) {
+          return Container(
+            height: Dimensions.pageView,
+            child: PageView.builder(
+              controller: pageController,
+              itemCount: popularProducts.popularProductList.length,
+              itemBuilder: (context, index) {
+                return buildPageItem(index);
+              },
+            ),
+          );
+        }),
         //Dots
         Dot(currPageValue: _currPageValue),
 
