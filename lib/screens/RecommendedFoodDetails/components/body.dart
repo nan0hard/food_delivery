@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../../components/app_icon.dart';
 import '../../../components/big_text.dart';
 import '../../../components/expandable_text.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/dimensions.dart';
+import 'clear_and_cart_icon.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
@@ -14,19 +14,7 @@ class Body extends StatelessWidget {
       slivers: [
         SliverAppBar(
           toolbarHeight: Dimensions.height30 * 2 + Dimensions.height10,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              AppIcon(
-                icon: Icons.clear,
-                iconSize: Dimensions.iconSize16,
-              ),
-              AppIcon(
-                iconSize: Dimensions.iconSize16,
-                icon: Icons.shopping_cart_outlined,
-              )
-            ],
-          ),
+          title: ClearAndCartIcon(),
           pinned: true,
           backgroundColor: AppColors.kyellowColor,
           expandedHeight: 300,
