@@ -16,9 +16,15 @@ class BackAndCartIcon extends StatelessWidget {
         right: Dimensions.width20,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
-            AppIcon(icon: Icons.arrow_back_ios),
-            AppIcon(icon: Icons.shopping_cart_outlined),
+          children: [
+            AppIcon(
+              icon: Icons.arrow_back_ios,
+              iconSize: Dimensions.iconSize16,
+            ),
+            AppIcon(
+              icon: Icons.shopping_cart_outlined,
+              iconSize: Dimensions.iconSize16,
+            ),
           ],
         ));
   }
