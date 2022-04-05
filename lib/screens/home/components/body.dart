@@ -5,12 +5,14 @@ import 'package:food_delivery/components/big_text.dart';
 import 'package:food_delivery/components/small_text.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/model/product_model.dart';
+import 'package:food_delivery/screens/PopularFoodDetails/popular_food_details.dart';
 import 'package:food_delivery/screens/home/components/popular_card.dart';
-import 'package:food_delivery/screens/home/components/recommended_food.dart';
+// import 'package:food_delivery/screens/home/components/recommended_food.dart';
 import 'package:food_delivery/utils/app_constants.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:get/get.dart';
 import '../../../components/product_short_desc_and_review.dart';
+import '../../../routes/routes.dart';
 import '../../../utils/dimensions.dart';
 import 'dots.dart';
 
@@ -142,19 +144,25 @@ class _BodyState extends State<Body> {
       transform: matrix,
       child: Stack(
         children: [
-          Container(
-            height: Dimensions.pageViewContainer,
-            margin: EdgeInsets.only(
-              left: Dimensions.width10,
-              right: Dimensions.width10,
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(Dimensions.radius30),
-              color: Colors.blueGrey,
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage(
-                    AppConstants.BASE_URL + "/uploads/" + popularProduct.img!),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(Routes.getPopularFood(index));
+            },
+            child: Container(
+              height: Dimensions.pageViewContainer,
+              margin: EdgeInsets.only(
+                left: Dimensions.width10,
+                right: Dimensions.width10,
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(Dimensions.radius30),
+                color: Colors.blueGrey,
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(AppConstants.BASE_URL +
+                      AppConstants.UPLOAD_URL +
+                      popularProduct.img!),
+                ),
               ),
             ),
           ),

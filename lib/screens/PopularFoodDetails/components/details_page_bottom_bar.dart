@@ -1,14 +1,22 @@
 // import 'package:flutter/material.dart';
+// import 'package:food_delivery/controllers/popular_product_controller.dart';
+// import 'package:get/get.dart';
 
-// import '../utils/colors.dart';
-// import '../utils/dimensions.dart';
-// import 'big_text.dart';
+// import '../../../components/big_text.dart';
+// import '../../../utils/colors.dart';
+// import '../../../utils/dimensions.dart';
 
-// class WishlistAndPricingBottomBar extends StatelessWidget {
-//   const WishlistAndPricingBottomBar({Key? key}) : super(key: key);
+// class DetailsPageBottomBar extends StatelessWidget {
+//   DetailsPageBottomBar({
+//     Key? key,
+//     required this.pageId,
+//   }) : super(key: key);
 
+//   int pageId;
 //   @override
 //   Widget build(BuildContext context) {
+//     var product =
+//         Get.find<PopularProductController>().popularProductList[pageId];
 //     return Container(
 //       height: Dimensions.bottomHeightBar,
 //       padding: EdgeInsets.only(
@@ -32,9 +40,24 @@
 //               borderRadius: BorderRadius.circular(Dimensions.radius20),
 //               color: Colors.white,
 //             ),
-//             child: Icon(
-//               Icons.favorite,
-//               color: AppColors.kmainColor,
+//             child: Row(
+//               children: [
+//                 Icon(
+//                   Icons.remove,
+//                   color: AppColors.ksignColor,
+//                 ),
+//                 SizedBox(
+//                   width: Dimensions.width10 / 2,
+//                 ),
+//                 BigText(text: "0"),
+//                 SizedBox(
+//                   width: Dimensions.width10 / 2,
+//                 ),
+//                 Icon(
+//                   Icons.add,
+//                   color: AppColors.ksignColor,
+//                 )
+//               ],
 //             ),
 //           ),
 //           Container(
