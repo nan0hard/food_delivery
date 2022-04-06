@@ -20,18 +20,22 @@ class CartController extends GetxController {
     var totalQuantity = 0;
 
     if (_items.containsKey(product.id!)) {
-      _items.update(product.id!, (value) {
-        totalQuantity = value.quantity! + quantity;
-        return CartModel(
-          id: value.id,
-          name: value.name,
-          price: value.price,
-          img: value.img,
-          quantity: value.quantity! + quantity,
-          isExist: true,
-          time: DateTime.now().toString(),
-        );
-      });
+      _items.update(
+        product.id!,
+        (value) {
+          totalQuantity = value.quantity! + quantity;
+          return CartModel(
+            id: value.id,
+            name: value.name,
+            price: value.price,
+            img: value.img,
+            quantity: value.quantity! + quantity,
+            isExist: true,
+            time: DateTime.now().toString(),
+            product: product,
+          );
+        },
+      );
 
       if (totalQuantity <= 0) {
         _items.remove(product.id);
@@ -56,18 +60,20 @@ class CartController extends GetxController {
               quantity: quantity,
               isExist: true,
               time: DateTime.now().toString(),
+              product: product,
             );
           },
         );
       } else {
         Get.snackbar(
           "Number of orders",
-          "Sorry! The restaurant is currently not accepting order more than 5 !",
+          "Add alteast one item to Cart",
           backgroundColor: AppColors.kmainColor,
           colorText: Colors.white,
         );
       }
     }
+    update();
   }
 
   bool existInCart(ProductModel productModel) {
@@ -95,5 +101,11 @@ class CartController extends GetxController {
       totalQuantity += value.quantity!;
     });
     return totalQuantity;
+  }
+
+  List<CartModel> get getItems {
+    return _items.entries.map((e) {
+      return e.value;
+    }).toList();
   }
 }

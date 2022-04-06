@@ -27,7 +27,7 @@ class PopularCard extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      Get.toNamed(Routes.getRecommendedFood(index));
+                      Get.toNamed(Routes.getRecommendedFood(index, 'home'));
                     },
                     child: Container(
                       margin: EdgeInsets.only(

@@ -146,7 +146,7 @@ class _BodyState extends State<Body> {
         children: [
           GestureDetector(
             onTap: () {
-              Get.toNamed(Routes.getPopularFood(index));
+              Get.toNamed(Routes.getPopularFood(index, "home"));
             },
             child: Container(
               height: Dimensions.pageViewContainer,

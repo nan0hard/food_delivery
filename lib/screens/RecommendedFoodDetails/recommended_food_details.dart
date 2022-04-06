@@ -9,15 +9,18 @@ import 'package:get/get.dart';
 import '../../components/app_icon.dart';
 import '../../components/big_text.dart';
 import '../../components/expandable_text.dart';
+import '../../routes/routes.dart';
 import '../../utils/colors.dart';
 import '../../utils/dimensions.dart';
 import 'components/clear_and_cart_icon.dart';
 
 class RecommendedFoodDetail extends StatelessWidget {
-  const RecommendedFoodDetail({Key? key, required this.pageId})
+  const RecommendedFoodDetail(
+      {Key? key, required this.pageId, required this.page})
       : super(key: key);
 
   final int pageId;
+  final String page;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +35,70 @@ class RecommendedFoodDetail extends StatelessWidget {
             SliverAppBar(
               automaticallyImplyLeading: false,
               toolbarHeight: Dimensions.height30 * 2 + Dimensions.height10,
-              title: ClearAndCartIcon(),
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      if (page == 'cart') {
+                        Get.toNamed(Routes.getCart());
+                      } else {
+                        Get.toNamed(Routes.getInitial());
+                      }
+                    },
+                    child: AppIcon(
+                      icon: Icons.clear,
+                      iconSize: Dimensions.iconSize16,
+                    ),
+                  ),
+                  // AppIcon(
+                  //   iconSize: Dimensions.iconSize16,
+                  //   icon: Icons.shopping_cart_outlined,
+                  // )
+                  GetBuilder<PopularProductController>(
+                    builder: (controller) {
+                      return Stack(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              if (controller.totalItems >= 1) {
+                                Get.toNamed(Routes.getCart());
+                              }
+                            },
+                            child: AppIcon(
+                              icon: Icons.shopping_cart_outlined,
+                              iconSize: Dimensions.iconSize16,
+                            ),
+                          ),
+                          controller.totalItems >= 1
+                              ? Positioned(
+                                  right: 0,
+                                  top: 0,
+                                  child: AppIcon(
+                                    icon: Icons.circle,
+                                    size: 20,
+                                    iconColor: Colors.transparent,
+                                    backgroundColor: AppColors.kmainColor,
+                                  ),
+                                )
+                              : Container(),
+                          controller.totalItems >= 1
+                              ? Positioned(
+                                  right: 6.5,
+                                  top: 3.5,
+                                  child: BigText(
+                                    text: controller.totalItems.toString(),
+                                    size: 12,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              : Container(),
+                        ],
+                      );
+                    },
+                  )
+                ],
+              ),
               pinned: true,
               backgroundColor: AppColors.kyellowColor,
               expandedHeight: 300,
