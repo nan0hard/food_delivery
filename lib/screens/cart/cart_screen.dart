@@ -4,7 +4,7 @@ import 'package:food_delivery/components/big_text.dart';
 import 'package:food_delivery/components/small_text.dart';
 import 'package:food_delivery/controllers/cart_controller.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
-import 'package:food_delivery/screens/home/home_page.dart';
+import 'package:food_delivery/screens/home/food_page.dart';
 import 'package:food_delivery/utils/app_constants.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/dimensions.dart';

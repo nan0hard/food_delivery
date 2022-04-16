@@ -1,8 +1,8 @@
 import 'package:food_delivery/screens/PopularFoodDetails/popular_food_details.dart';
 import 'package:food_delivery/screens/RecommendedFoodDetails/recommended_food_details.dart';
 import 'package:food_delivery/screens/cart/cart_screen.dart';
-import 'package:food_delivery/screens/home/home_page.dart';
 import 'package:get/get.dart';
+import '../screens/home/home_page.dart';
 
 class Routes {
   static const String initial = "/";

@@ -13,7 +13,7 @@ import '../../controllers/popular_product_controller.dart';
 import '../../routes/routes.dart';
 import '../../utils/colors.dart';
 import '../../utils/dimensions.dart';
-import 'components/back_and_cart_icon.dart';
+// import 'components/back_and_cart_icon.dart';
 import 'components/detail_page_image.dart';
 
 class PopularFoodDetails extends StatelessWidget {
