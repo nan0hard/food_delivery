@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/routes/routes.dart';
 import 'package:food_delivery/screens/home/food_page.dart';
+import 'package:food_delivery/screens/splash/splash_screen.dart';
 import 'package:get/get.dart';
 import './helper/dependencies.dart' as dep;
 import 'controllers/recommended_product_controller.dart';
@@ -20,14 +21,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Get.find<PopularProductController>().getPopularProductList();
-    Get.find<RecommendedProductController>().getRecommendedProductList();
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Food Delivery App',
-      // home: HomePage(),
-      getPages: Routes.routes,
-      initialRoute: Routes.getInitial(),
-    );
+    return GetBuilder<PopularProductController>(builder: (context) {
+      return GetBuilder<RecommendedProductController>(builder: (context) {
+        return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Food Delivery App',
+          // home: SplashScreen(),
+          getPages: Routes.routes,
+          initialRoute: Routes.getSplashPage(),
+        );
+      });
+    });
   }
 }
