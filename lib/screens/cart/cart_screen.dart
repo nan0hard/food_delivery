@@ -245,7 +245,7 @@ class CartScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      //
+                      controller.addToHistory();
                     },
                     child: Container(
                       padding: EdgeInsets.all(Dimensions.height20),
