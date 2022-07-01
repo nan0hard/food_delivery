@@ -1,5 +1,6 @@
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery/screens/cart/cart_history.dart';
 import 'package:food_delivery/screens/home/food_page.dart';
 // import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
@@ -17,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   List pages = [
     const FoodPage(),
     const Center(child: Text("Next Page")),
-    const Center(child: Text("Next Next Page")),
+    CartHistory(),
     const Center(child: Text("Next Next Next Page")),
   ];
   // late PersistentTabController _controller;
@@ -101,7 +102,7 @@ class _HomePageState extends State<HomePage> {
             label: "Home",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.archive_outlined),
+            icon: Icon(Icons.favorite_outline),
             label: "Home",
           ),
           BottomNavigationBarItem(
