@@ -1,5 +1,7 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery/controllers/popular_product_controller.dart';
+import 'package:get/get.dart';
 
 import '../../../utils/colors.dart';
 
@@ -14,16 +16,20 @@ class Dot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DotsIndicator(
-      dotsCount: 5,
-      position: _currPageValue,
-      decorator: DotsDecorator(
-        activeColor: AppColors.kmainColor,
-        size: const Size.square(9.0),
-        activeSize: const Size(18.0, 9.0),
-        activeShape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-      ),
-    );
+    return GetBuilder<PopularProductController>(builder: (controller) {
+      return DotsIndicator(
+        dotsCount: controller.popularProductList.isEmpty
+            ? 1
+            : controller.popularProductList.length,
+        position: _currPageValue,
+        decorator: DotsDecorator(
+          activeColor: AppColors.kmainColor,
+          size: const Size.square(9.0),
+          activeSize: const Size(18.0, 9.0),
+          activeShape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+        ),
+      );
+    });
   }
 }

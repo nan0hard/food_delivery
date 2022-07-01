@@ -3,8 +3,16 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/components/big_text.dart';
 import 'package:food_delivery/components/small_text.dart';
+import 'package:food_delivery/controllers/popular_product_controller.dart';
+import 'package:food_delivery/model/product_model.dart';
+import 'package:food_delivery/screens/PopularFoodDetails/popular_food_details.dart';
 import 'package:food_delivery/screens/home/components/popular_card.dart';
-import 'package:food_delivery/screens/home/components/recommended_food.dart';
+// import 'package:food_delivery/screens/home/components/recommended_food.dart';
+import 'package:food_delivery/utils/app_constants.dart';
+import 'package:food_delivery/utils/colors.dart';
+import 'package:get/get.dart';
+import '../../../components/product_short_desc_and_review.dart';
+import '../../../routes/routes.dart';
 import '../../../utils/dimensions.dart';
 import 'dots.dart';
 
@@ -42,15 +50,24 @@ class _BodyState extends State<Body> {
     return Column(
       children: [
         //Recommended Food
-        Container(
-          height: Dimensions.pageView,
-          child: PageView.builder(
-            controller: pageController,
-            itemCount: 5,
-            itemBuilder: (context, index) {
-              return buildPageItem(index);
-            },
-          ),
+        GetBuilder<PopularProductController>(
+          builder: (popularProducts) {
+            return popularProducts.isLoaded
+                ? Container(
+                    height: Dimensions.pageView,
+                    child: PageView.builder(
+                      controller: pageController,
+                      itemCount: popularProducts.popularProductList.length,
+                      itemBuilder: (context, index) {
+                        return _buildPageItem(
+                            index, popularProducts.popularProductList[index]);
+                      },
+                    ),
+                  )
+                : CircularProgressIndicator(
+                    color: AppColors.kmainColor,
+                  );
+          },
         ),
         //Dots
         Dot(currPageValue: _currPageValue),
@@ -67,7 +84,7 @@ class _BodyState extends State<Body> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              BigText(text: "Popular"),
+              BigText(text: "Recommended"),
               SizedBox(
                 width: Dimensions.width10,
               ),
@@ -98,7 +115,7 @@ class _BodyState extends State<Body> {
     );
   }
 
-  Widget buildPageItem(int index) {
+  Widget _buildPageItem(int index, ProductModel popularProduct) {
     Matrix4 matrix = Matrix4.identity();
     if (index == _currPageValue.floor()) {
       var currScale = 1 - (_currPageValue - index) * (1 - _scaleFactor);
@@ -125,7 +142,59 @@ class _BodyState extends State<Body> {
 
     return Transform(
       transform: matrix,
-      child: RecommendedFood(),
+      child: Stack(
+        children: [
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(Routes.getPopularFood(index, "home"));
+            },
+            child: Container(
+              height: Dimensions.pageViewContainer,
+              margin: EdgeInsets.only(
+                left: Dimensions.width10,
+                right: Dimensions.width10,
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(Dimensions.radius30),
+                color: Colors.blueGrey,
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(AppConstants.BASE_URL +
+                      AppConstants.UPLOAD_URL +
+                      popularProduct.img!),
+                ),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+                height: Dimensions.pageViewTextContainer,
+                margin: EdgeInsets.only(
+                    left: Dimensions.width30,
+                    right: Dimensions.width30,
+                    bottom: Dimensions.width30),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(Dimensions.radius20),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                          color: Color(0xFFE8E8E8),
+                          offset: Offset(0, 5),
+                          blurRadius: 5),
+                      BoxShadow(color: Colors.white, offset: Offset(-5, 0)),
+                      BoxShadow(color: Colors.white, offset: Offset(5, 0)),
+                    ]),
+                child: Container(
+                  padding: EdgeInsets.only(
+                      top: Dimensions.width15,
+                      left: Dimensions.width15,
+                      right: Dimensions.width15),
+                  child: ProductShortDescAndReview(text: popularProduct.name!),
+                )),
+          ),
+        ],
+      ),
     );
   }
 }
